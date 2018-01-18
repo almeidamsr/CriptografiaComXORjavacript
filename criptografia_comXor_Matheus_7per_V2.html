@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+background-color:#ce99ff;
+}
+</style>
+</head>
+<body>
+
+<h1>Cr1ptOgrafi@A</h1>
+<hr>
+<h5>Matheus S.R Almeida 7º periodo B.S.I </h5>
+<br>
+<hr>
+<button onclick="recarregarPagina()">Denovo</button>
+
+<script>
+	
+	<!-- botao para recarregar a Pagina e facilitar -->
+	function recarregarPagina() {
+		location.reload();
+	}
+
+	var frase = "";
+	var alfabeto = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31",
+					" ","!",'"',"#","$","%","&","'","(",")","*","+",",","-",".","/","0","1","2","3","4","5","6","7","8","9",":",";","<","=",">","?",
+					"@","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",'"["','"\"',"\]","^","_",
+					"`","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","{","|","}","~","127"];
+					
+	var chave = prompt("Introduza a chave para criptografar:");
+	var x = parseInt(chave.length);
+	var alfabetoFrase = [];
+	var alfabetoChave = [];
+	var resultado = [];
+	var resultadoXor = [];
+	var resultadoBin = [];
+	var varTeste = [];
+	var varTeste2 = [];
+	var resultadoXorInt = 0;
+	var resultCriptografado = [];
+
+		if(chave.length >= 6){
+			
+				<!-- guarda a frase -->
+				var frase = prompt("Introduza a frase:");
+				
+				<!-- O / ? o in?cio de uma express?o regular O \ w procura todos os caracteres de palavra em uma sequ?ncia de caracteres. As| separam os caracteres especiais o /g (combina??o global) finaliza a express?o.O replace substitui os espa?oes e caracteres especiais -->
+				frase = frase.replace(/\W|^|~|\?|,|\*|\.|\-/g,"");
+				alert("A Frase sem caracteres especiais fica : "+frase);
+				
+				var fraseTamanho = frase.length;
+				<!-- alert("Tamanho da frase : "+fraseTamanho); -->
+				
+				if(fraseTamanho >= 6){
+				
+						var letrasFaltantes = fraseTamanho - chave.length;
+						
+						for(var i = 0; i <= letrasFaltantes;i++){
+							chave = chave + chave;
+						}
+						
+						chave = chave.substring(0,fraseTamanho);				
+						alert("A chave Fica : "+ chave);
+					
+					
+	for (var i = 0; i < fraseTamanho; i++)
+    {				
+		for (var j = 0; j < alfabeto.length; j++)
+		{
+			if (frase[i] == alfabeto[j])
+			 {
+			   alfabetoFrase[i] = alfabeto[j];	
+			   alfabetoFrase[i] = alfabetoFrase[i].charCodeAt(0); 	   <!-- Retornar o Unicode do caractere  -->
+			   <!-- alfabetoFrase[i] = alfabetoFrase[i].toString(2); -->
+			   <!-- alert("Letra Frase : "+alfabetoFrase[i]); -->
+			   break;
+			 }
+		}
+		for (var x = 0; x < alfabeto.length; x++)
+		{
+			 if (chave[i] == alfabeto[x])
+			 {
+			   alfabetoChave[i] = alfabeto[x];
+			   alfabetoChave[i] = alfabetoChave[i].charCodeAt(0);
+			   <!-- alfabetoChave[i] = alfabetoChave[i].toString(2); --> 
+			   <!-- alert("Letra Chave : "+alfabetoChave[i]); -->
+			   break;
+			 }
+		}
+	}
+		
+	for (var i = 0; i < fraseTamanho; i++)
+	{
+			<!-- resultado xor em binario -->
+			<!-- resultado[i] = alfabetoFrase[i] ^ alfabetoChave[i] +""+resultado[i]; -->
+			 
+			resultCriptografado[i] = alfabetoFrase[i] ^ alfabetoChave[i]; <!-- usado pra descriptografar -->
+			resultCriptografado[i] = parseInt(resultCriptografado[i]);
+			resultadoXor[i] = alfabetoFrase[i] ^ alfabetoChave[i];
+			resultadoXorInt = parseInt(resultadoXor[i]);
+			
+			
+			resultadoBin[i] = resultadoXor[i].toString(2); <!-- Em binario -->
+			
+			<!-- testando o resultado no alfabeto da tabela  -->
+			for (var j = 0; j < alfabeto.length; j++)
+			{
+				if (alfabeto[resultadoXorInt] == alfabeto[j])
+				{
+					resultadoXor[i] = alfabeto[resultadoXorInt];
+				}
+			}
+			
+			<!-- alert("Resultado xor : "+resultadoXor[i] ); -->
+			<!-- resultado[i] = String.fromCharCode(resultadoXor[i]); -->
+			<!-- alert("testando resultado : "+resultado[i]); -->
+			
+
+			varTeste[i] = resultadoXor[i]; <!-- testando -->
+			varTeste2[i] = String.fromCharCode(alfabetoFrase[i]); <!-- testando -->
+		
+	}
+	
+    <!-- resultado = resultado.toString(); -->
+    <!-- resultado = resultado.replace(/\,/g,""); --> <!--substitui a virgula -->
+	<!-- resultado = String.fromCharCode(resultado); -->
+	
+	resultadoXor = resultadoXor.toString();
+    resultadoXor = resultadoXor.replace(/\,/g,""); <!--substitui a virgula -->
+	
+	alert("resultado em caracteres: "+resultadoXor);
+	
+	alert("Teste : resultado xor em decimal: "+varTeste);
+	
+	alert("Teste: resultado em binario : "+resultadoBin);
+
+	<!-- alert("Teste : Retornando a frase para caractere: "+varTeste2); -->
+	
+	<!-- alert("resultado em caracteres: "+resultado); -->
+			
+	<!-- var c = ""; -->
+	<!-- var teste =  parseInt(); -->
+	
+   <!-- var teste = "\n".charCodeAt(0); -->
+   <!--  alert("teste : "+teste); -->
+	
+	var chave2 = prompt("Introduza a chave para descriptografar:");
+	
+	for (var i = 0; i < fraseTamanho; i++)
+    {
+		for (var z = 0; z < alfabeto.length; z++)
+		{
+			 if (chave2[i] == alfabeto[z])
+			 {
+			   alfabetoChave[i] = alfabeto[z];
+			   alfabetoChave[i] = alfabetoChave[i].charCodeAt(0);
+			   <!-- resultado[i] = resultCriptografado[i] ^ alfabetoChave[i]; -->
+			   resultado[i] = resultCriptografado[i] ^ alfabetoChave[i];
+			   resultado[i] = String.fromCharCode(resultado[i]); 
+			   break;
+			 }
+		}
+	}
+	
+	alert("resultado descriptografia : "+resultado.join(""));
+	<!-- --------------- -->
+			}else{
+					alert("frase invalida precisa ter 6 ou mais caracteres");
+				}			
+		}
+		else{ alert("chave invalida precisa ter 6 ou mais caracteres");}
+	<!-- ; -->
+</script>
+
+</body>
+</html>
